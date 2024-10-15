@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::simplePaginate(12);
+        return view('dashboard', [ 'posts' => $posts]);
     }
 
     /**
@@ -29,7 +31,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'caption' => ['required', 'string'],
+            'image_file' => ['required', 'image']
+        ]);
+
+
+        $cloudinaryImage = $request->file('image_file')->storeOnCloudinary('moments');
+        $url = $cloudinaryImage->getSecurePath();
+
+        unset($data['image_file']);
+        Post::create(array_merge($data, [
+            'image_url' => $url
+        ]));
+
+        return redirect()->route('dashboard')->with('status', 'post-created');
     }
 
     /**

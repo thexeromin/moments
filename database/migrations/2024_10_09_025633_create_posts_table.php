@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string('caption');
+            $table->string('image_url');
+            $table->integer('like')->default(0);
             $table->timestamps();
         });
     }

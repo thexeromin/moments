@@ -9,18 +9,23 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('post.store') }}" class="mt-6 space-y-6">
+    <form 
+        method="post"
+        action="{{ route('post.store') }}"
+        enctype="multipart/form-data"
+        class="mt-6 space-y-6"
+    >
         @csrf
 
         <div>
-            <x-input-label for="title" :value="__('Caption')" />
-            <x-text-input id="title" title="title" type="text" class="mt-1 block w-full" required autofocus autocomplete="title" />
-            <x-input-error class="mt-2" :messages="$errors->get('title')" />
+            <x-input-label for="caption" :value="__('Caption')" />
+            <x-text-input id="caption" name="caption" type="text" class="mt-1 block w-full" required autofocus autocomplete="caption" />
+            <x-input-error class="mt-2" :messages="$errors->get('caption')" />
         </div>
 
         <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-            <x-input-upload aria-describedby="file_input_help" id="file_input" type="file" />
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image_file">Upload file</label>
+            <x-input-upload aria-describedby="file_input_help" id="image_file" type="file" name="image_file" />
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
         </div>
 

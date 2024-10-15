@@ -16,8 +16,20 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+         $image_urls = [
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg',
+            'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg',
+        ];
+
         return [
-            //
+            'caption' => $this->faker->sentence(4),
+            'image_url' => $this->faker->randomElement($image_urls),
         ];
     }
 }
