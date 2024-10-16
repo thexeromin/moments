@@ -5,7 +5,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('explore');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

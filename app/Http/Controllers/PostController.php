@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::simplePaginate(12);
-        return view('dashboard', [ 'posts' => $posts]);
+        return view('explore', [ 'posts' => $posts]);
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
             'image_url' => $url
         ]));
 
-        return redirect()->route('dashboard')->with('status', 'post-created');
+        return redirect()->route('explore')->with('status', 'post-created');
     }
 
     /**
