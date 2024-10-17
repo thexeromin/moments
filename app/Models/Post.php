@@ -11,4 +11,19 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = ['caption', 'like', 'image_url'];
+
+    public function likes()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'post_user_likes',
+            'post_id',
+            'user_id'
+        )->withTimestamps();
+    }
+
+    public function isLikedBy(User $user)
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
 }

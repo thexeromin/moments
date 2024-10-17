@@ -14,5 +14,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('post', PostController::class);
+Route::post('/posts/{postId}/toggle-like', [PostController::class, 'toggleLike'])->middleware('auth')->name('post.like');
 
 require __DIR__.'/auth.php';

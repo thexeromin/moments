@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -28,6 +29,7 @@ class PostController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * TODO: update author_id
      */
     public function store(Request $request)
     {
@@ -78,5 +80,21 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    // Toggle like/unlike functionality
+    public function toggleLike($postId)
+    {
+        $post = Post::findOrFail($postId);
+        $user = Auth::user();
+
+        // Check if the user has already liked the post
+        if ($post->isLikedBy($user)) {
+            $post->likes()->detach($user->id); // Unlike the post (remove from pivot table)
+            return redirect()->route('explore')->with('status', 'post-unliked');
+        } else {
+            $post->likes()->attach($user->id); // Like the post (add to pivot table)
+            return redirect()->route('explore')->with('status', 'post-liked');
+        }
     }
 }

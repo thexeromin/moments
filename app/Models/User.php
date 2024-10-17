@@ -45,4 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Define the many-to-many relationship with Post
+    public function likedPosts()
+    {
+        return $this->belongsToMany(
+            Post::class,
+            'post_user_likes',
+            'user_id',
+            'post_id'
+        )->withTimestamps();
+    }
 }

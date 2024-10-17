@@ -9,14 +9,14 @@
                             alt="{{ $post->caption }}">
                         <!-- Always visible heart icon -->
                         <div class="absolute top-2 left-2 text-white text-3xl z-10">
-                            <i class="fas fa-heart text-red-500"></i>
-                        </div>
-
-                        <!-- Hover overlay with heart and trash icon -->
-                        <div
-                            class="absolute inset-0 bg-white bg-opacity-20 backdrop-blur-lg flex justify-center space-x-4 items-center rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
-                            <i class="fas fa-heart text-white text-5xl"></i>
-                            <!-- <i class="fas fa-trash text-white text-5xl"></i> -->
+                            <form method="post" action="{{ route('post.like', ['postId' => $post['id'] ]) }}">
+                                @csrf
+                                <button type="submit"
+                                    class="appearance-none bg-transparent border-none p-0 m-0 focus:outline-none">
+                                    <i
+                                        class="fas fa-heart {{ $post->isLikedBy(auth()->user()) ? 'text-red-500' : 'text-white-500' }}"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     @endforeach
