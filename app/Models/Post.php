@@ -10,7 +10,7 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
-    protected $fillable = ['caption', 'like', 'image_url'];
+    protected $fillable = ['caption', 'like', 'image_url', 'author_id'];
 
     public function likes()
     {

@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::simplePaginate(12);
+        $posts = Post::orderBy('created_at', 'desc')->simplePaginate(12);
         return view('explore', [ 'posts' => $posts]);
     }
 
@@ -44,7 +44,8 @@ class PostController extends Controller
 
         unset($data['image_file']);
         Post::create(array_merge($data, [
-            'image_url' => $url
+            'image_url' => $url,
+            'author_id' => auth()->user()->id
         ]));
 
         return redirect()->route('explore')->with('status', 'post-created');
