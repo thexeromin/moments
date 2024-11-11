@@ -18,6 +18,11 @@
                                 </button>
                             </form>
                         </div>
+                        <!-- Text at the bottom center -->
+                        <div
+                            class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-sm text-slate-500 bg-white w-full p-3 rounded-bl-lg rounded-br-lg">
+                            Moment of {{ $post->author->name }}
+                        </div>
                     </div>
                     @endforeach
                 </div>

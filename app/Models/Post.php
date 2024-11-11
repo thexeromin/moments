@@ -12,6 +12,11 @@ class Post extends Model
 
     protected $fillable = ['caption', 'like', 'image_url', 'author_id'];
 
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
     public function likes()
     {
         return $this->belongsToMany(
