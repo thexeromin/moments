@@ -80,7 +80,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if ($post->author_id !== request()->user()->id) {
+            abort(403);
+        }
+
+        $post->delete();
+
+        return to_route('post.my-post')->with('status', 'post-deleted');
     }
 
     // Toggle like/unlike functionality
@@ -97,5 +103,12 @@ class PostController extends Controller
             $post->likes()->attach($user->id); // Like the post (add to pivot table)
             return redirect()->route('explore')->with('status', 'post-liked');
         }
+    }
+
+    public function myPosts() {
+        $posts = Post::where(
+            'author_id', request()->user()->id
+        )->orderBy('created_at', 'desc')->simplePaginate(9);
+        return view('post.my-post', ['posts' => $posts]);
     }
 }
