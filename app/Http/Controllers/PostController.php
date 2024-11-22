@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $comments = Comment::where(
+            'post_id', $post->id
+        )->get();
+        return view('post.show', [
+            'post' => $post,
+            'comments' => $comments
+        ]);
     }
 
     /**

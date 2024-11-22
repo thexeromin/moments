@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +15,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('post', PostController::class);
+Route::resource('comment',CommentController::class);
 Route::post('/posts/{postId}/toggle-like', [PostController::class, 'toggleLike'])->middleware('auth')->name('post.like');
 Route::get('/my-posts', [PostController::class, 'myPosts'])->middleware('auth')->name('post.my-post');
 

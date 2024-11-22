@@ -5,23 +5,22 @@
                 <div class="flex flex-col items-center">
                     @foreach($posts as $post)
                     <div class="image-container mb-5 max-w-[500px] relative">
-                        <img class="h-auto max-w-full rounded-lg" src="{{ $post->image_url }}"
-                            alt="{{ $post->caption }}">
+                        <img class="h-auto max-w-full rounded-lg" src="{{ $post->image_url }}" alt="{{ $post->caption }}">
                         <!-- Always visible heart icon -->
                         <div class="absolute top-2 left-2 text-white text-3xl z-10">
                             <form method="post" action="{{ route('post.like', ['postId' => $post['id'] ]) }}">
                                 @csrf
-                                <button type="submit"
-                                    class="appearance-none bg-transparent border-none p-0 m-0 focus:outline-none">
-                                    <i
-                                        class="fas fa-heart {{ $post->isLikedBy(auth()->user()) ? 'text-red-500' : 'text-white-500' }}"></i>
+                                <button type="submit" class="appearance-none bg-transparent border-none p-0 m-0 focus:outline-none">
+                                    <i class="fas fa-heart {{ $post->isLikedBy(auth()->user()) ? 'text-red-500' : 'text-white-500' }}"></i>
                                 </button>
                             </form>
                         </div>
-                        <!-- Text at the bottom center -->
-                        <div
-                            class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-sm text-slate-500 bg-white w-full p-3 rounded-bl-lg rounded-br-lg">
-                            Moment of {{ $post->author->name }}
+                        <!-- Text at the bottom -->
+                        <div class="absolute bottom-0 left-0 w-full flex justify-between items-center bg-white p-3 rounded-bl-lg rounded-br-lg">
+                            <!-- Bottom-left text -->
+                            <span class="text-sm text-slate-500">Moment of {{ $post->author->name }}</span>
+                            <!-- Bottom-right link -->
+                            <a href="{{ route('post.show', $post->id) }}" class="text-sm text-blue-500 hover:underline">View more</a>
                         </div>
                     </div>
                     @endforeach
